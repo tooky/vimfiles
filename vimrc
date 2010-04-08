@@ -43,3 +43,6 @@ set listchars=tab:>-,trail:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 
 let g:rsenseHome = "/usr/lib/rsense-0.2"
+
+autocmd User Rails nnoremap <buffer> <D-r> :<C-U>Rake<CR>
+autocmd User Rails nnoremap <buffer> <D-R> :<C-U>.Rake<CR>
