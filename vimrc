@@ -4,6 +4,7 @@ call pathogen#runtime_append_all_bundles()
 
 syntax on
 filetype plugin indent on
+set ofu=syntaxcomplete#Complete
 set tabstop=2
 set smarttab
 set title
@@ -35,8 +36,14 @@ nnoremap ` '
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
-let mapleader = ","
+" Disable arrow keys in insert - training wheels mode
+inoremap <Left>  <NOP>
+inoremap <Right> <NOP>
+inoremap <Up>    <NOP>
+inoremap <Down>  <NOP>
 
+let mapleader = ","
+map <unique> <silent> <Leader>rt <Plug>RubyFileRun
 nmap <silent> <leader>n :silent :nohlsearch<CR>
 
 set listchars=tab:>-,trail:·,eol:$
