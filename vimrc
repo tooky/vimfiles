@@ -43,7 +43,10 @@ inoremap <Up>    <NOP>
 inoremap <Down>  <NOP>
 
 let mapleader = ","
-map <unique> <silent> <Leader>rt <Plug>RubyFileRun
+
+map <Leader>] <Plug>MakeGreen 
+autocmd BufNewFile,BufRead *_spec.rb compiler rspec
+
 nmap <silent> <leader>n :silent :nohlsearch<CR>
 
 set listchars=tab:>-,trail:·,eol:$
