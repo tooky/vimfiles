@@ -1,4 +1,3 @@
-colorscheme vividchalk
 
 " Font
 set guifont=Inconsolata:h15.00

@@ -24,6 +24,8 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set shortmess=atI
 set visualbell
 
+colorscheme vividchalk
+
 " Intuitive backspacing in insert mode
 set backspace=indent,eol,start
 
@@ -49,7 +51,7 @@ autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 
 nmap <silent> <leader>n :silent :nohlsearch<CR>
 
-set listchars=tab:>-,trail:·,eol:$
+set listchars=tab:>-,trail:·,eol:¬,extends:>
 nmap <silent> <leader>s :set nolist!<CR>
 
 let g:rsenseHome = "/usr/lib/rsense-0.2"
