@@ -29,7 +29,7 @@ au FocusLost * :wa
 
 nnoremap / /\v
 vnoremap / /\v
-set ignorecase 
+set ignorecase
 set smartcase
 set gdefault
 set showmatch
@@ -96,7 +96,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 
-map <Leader>] <Plug>MakeGreen 
+map <Leader>] <Plug>MakeGreen
 autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 
 nmap <silent> <leader>n :silent :nohlsearch<CR>
