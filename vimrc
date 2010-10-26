@@ -4,6 +4,7 @@ call pathogen#runtime_append_all_bundles()
 
 syntax on
 filetype plugin indent on
+set shell=/bin/sh
 set nocompatible
 set modelines=0
 set ofu=syntaxcomplete#Complete
@@ -106,3 +107,7 @@ nmap <silent> <leader>s :set nolist!<CR>
 
 autocmd User Rails nnoremap <buffer> <D-r> :<C-U>Rake<CR>
 autocmd User Rails nnoremap <buffer> <D-R> :<C-U>.Rake<CR>
+
+" expand %% to current file path in command mode
+cabbr <expr> %% expand('%:p:h')
+nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
