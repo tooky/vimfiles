@@ -26,8 +26,6 @@ set history=1000
 set wildmenu
 set wildmode=list:longest
 
-au FocusLost * :wa
-
 nnoremap / /\v
 vnoremap / /\v
 set ignorecase
@@ -48,7 +46,6 @@ set shortmess=atI
 set visualbell
 set cursorline
 set ttyfast
-set relativenumber
 set undofile
 set laststatus=2
 
@@ -67,14 +64,14 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 " Disable arrow keys in insert - training wheels mode
-inoremap <Left>  <NOP>
-inoremap <Right> <NOP>
-inoremap <Up>    <NOP>
-inoremap <Down>  <NOP>
-nnoremap <Left>  <NOP>
-nnoremap <Right> <NOP>
-nnoremap <Up>    <NOP>
-nnoremap <Down>  <NOP>
+"inoremap <Left>  <NOP>
+"inoremap <Right> <NOP>
+"inoremap <Up>    <NOP>
+"inoremap <Down>  <NOP>
+"nnoremap <Left>  <NOP>
+"nnoremap <Right> <NOP>
+"nnoremap <Up>    <NOP>
+"nnoremap <Down>  <NOP>
 nnoremap j gj
 nnoremap k gk
 
@@ -87,8 +84,9 @@ vnoremap <F1> <ESC>
 let mapleader = ","
 
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-nnoremap <leader>a :Ack
+nnoremap <leader>a :Ack 
 nnoremap <leader>v V`]
+nnoremap <leader>sb :b#<CR>
 
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <C-h> <C-w>h
@@ -111,3 +109,5 @@ autocmd User Rails nnoremap <buffer> <D-R> :<C-U>.Rake<CR>
 " expand %% to current file path in command mode
 cabbr <expr> %% expand('%:p:h')
 nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
+
+au BufRead,BufNewFile *.pl    set filetype=prolog

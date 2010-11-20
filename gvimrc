@@ -1,6 +1,6 @@
 
 " Font
-set guifont=Inconsolata:h15.00
+set guifont=Meslo\ LG\ M\ DZ:h13.00
 
 " No audible bell
 set vb
