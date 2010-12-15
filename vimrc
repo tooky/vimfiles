@@ -38,7 +38,7 @@ vnoremap <tab> %
 set wrap
 set textwidth=79
 set formatoptions=qrn1
-set colorcolumn=85
+set colorcolumn=+5,+6
 
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -49,7 +49,7 @@ set ttyfast
 set undofile
 set laststatus=2
 
-colorscheme vividchalk
+colorscheme molokai
 
 " Intuitive backspacing in insert mode
 set backspace=indent,eol,start
