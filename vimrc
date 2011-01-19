@@ -111,3 +111,6 @@ cabbr <expr> %% expand('%:p:h')
 nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
 
 au BufRead,BufNewFile *.pl    set filetype=prolog
+
+" Understand :W to be the same thing as :w
+command! W :w

@@ -1,4 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/Users/steve/Downloads/edit6'
 let g:netrw_dirhist_2='/Users/steve/.mutt'
+let g:netrw_dirhist_3='/Users/steve/Developer/.rvm/gems/ruby-1.9.2-p0@minisculus/gems/rack-test-0.5.6/lib/rack/test'
+let g:netrw_dirhist_4='/Users/steve/.ssh'
