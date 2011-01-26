@@ -55,3 +55,6 @@
 [submodule "vim/bundle/vim-prolog"]
 	path = vim/bundle/vim-prolog
 	url = git://github.com/adimit/prolog.vim.git
+[submodule "vim/bundle/command-t"]
+	path = vim/bundle/command-t
+	url = git://git.wincent.com/command-t.git
