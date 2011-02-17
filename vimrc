@@ -49,7 +49,8 @@ set ttyfast
 set undofile
 set laststatus=2
 
-colorscheme molokai
+colorscheme lettuce
+set fillchars=vert:\ ,fold:\ 
 
 " Intuitive backspacing in insert mode
 set backspace=indent,eol,start
@@ -84,8 +85,8 @@ vnoremap <F1> <ESC>
 let mapleader = ","
 
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-nnoremap <leader>a :Ack 
-nnoremap <leader>v V`]
+nnoremap <leader>a :Ack
+nnoremap <leader>V V`]
 nnoremap <leader>sb :b#<CR>
 
 nnoremap <leader>w <C-w>v<C-w>l
@@ -94,6 +95,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+"insert text from osx pastebuffer
+nnoremap <leader>v :.!pbpaste<CR>
 
 map <Leader>] <Plug>MakeGreen
 autocmd BufNewFile,BufRead *_spec.rb compiler rspec
@@ -101,6 +104,7 @@ autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 nmap <silent> <leader>n :silent :nohlsearch<CR>
 
 set listchars=tab:▸\ ,trail:·,eol:¬
+set list!
 nmap <silent> <leader>s :set nolist!<CR>
 
 autocmd User Rails nnoremap <buffer> <D-r> :<C-U>Rake<CR>
@@ -114,3 +118,5 @@ au BufRead,BufNewFile *.pl    set filetype=prolog
 
 " Understand :W to be the same thing as :w
 command! W :w
+command! Wq :wq
+
