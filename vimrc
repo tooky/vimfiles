@@ -49,8 +49,7 @@ set ttyfast
 set undofile
 set laststatus=2
 
-colorscheme lettuce
-set fillchars=vert:\ ,fold:\ 
+colorscheme molokai
 
 " Intuitive backspacing in insert mode
 set backspace=indent,eol,start
