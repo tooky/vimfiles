@@ -49,7 +49,8 @@ set ttyfast
 set undofile
 set laststatus=2
 
-colorscheme molokai
+set background=dark
+colorscheme solarized
 
 " Intuitive backspacing in insert mode
 set backspace=indent,eol,start
@@ -64,14 +65,14 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 " Disable arrow keys in insert - training wheels mode
-"inoremap <Left>  <NOP>
-"inoremap <Right> <NOP>
-"inoremap <Up>    <NOP>
-"inoremap <Down>  <NOP>
-"nnoremap <Left>  <NOP>
-"nnoremap <Right> <NOP>
-"nnoremap <Up>    <NOP>
-"nnoremap <Down>  <NOP>
+inoremap <Left>  <NOP>
+inoremap <Right> <NOP>
+inoremap <Up>    <NOP>
+inoremap <Down>  <NOP>
+nnoremap <Left>  <NOP>
+nnoremap <Right> <NOP>
+nnoremap <Up>    <NOP>
+nnoremap <Down>  <NOP>
 nnoremap j gj
 nnoremap k gk
 
@@ -86,16 +87,18 @@ let mapleader = ","
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>a :Ack
 nnoremap <leader>V V`]
-nnoremap <leader>sb :b#<CR>
+nnoremap <leader>, :b#<CR>
 
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
+
 nnoremap <C-l> <C-w>l
 
 "insert text from osx pastebuffer
-nnoremap <leader>v :.!pbpaste<CR>
+inoremap <C-v> <C-O>:set paste<CR><C-r>*<C-O>:set nopaste<CR>
+inoremap <C-V> <C-O>:set paste!<CR>
 
 map <Leader>] <Plug>MakeGreen
 autocmd BufNewFile,BufRead *_spec.rb compiler rspec
@@ -118,4 +121,113 @@ au BufRead,BufNewFile *.pl    set filetype=prolog
 " Understand :W to be the same thing as :w
 command! W :w
 command! Wq :wq
+
+function! SolarizeDegrade()
+  let g:solarized_termcolors=256
+  exec ":colorscheme solarized"
+endfunction
+
+command! Solarize256 call SolarizeDegrade()
+
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>e :edit %%
+map <leader>v :view %%
+
+" Open files with <leader>f
+map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+" Open files, limited to the directory of the current file, with <leader>gf
+" This requires the %% mapping found below.
+map <leader>gf :CommandTFlush<cr>\|:CommandT %%<cr>
+
+map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
+
+map <leader>gr :topleft :split config/routes.rb<cr>
+map <leader>gg :topleft 100 :split Gemfile<cr>
+
+function! ShowRoutes()
+  " Requires 'scratch' plugin
+  :topleft 100 :split __Routes__
+  " Make sure Vim doesn't write __Routes__ as a file
+  :set buftype=nofile
+  " Delete everything
+  :normal 1GdG
+  " Put routes output in buffer
+  :0r! rake -s routes
+  " Size window to number of lines (1 plus rake output length)
+  :exec ":normal " . line("$") . _ "
+  " Move cursor to bottom
+  :normal 1GG
+  " Delete empty trailing line
+  :normal dd
+endfunction
+map <leader>gR :call ShowRoutes()<cr>
+
+set winwidth=84
+" We have to have a winheight bigger than we want to set winminheight. But if
+" we set winheight to be huge before winminheight, the winminheight set will
+" fail.
+set winheight=5
+set winminheight=5
+set winheight=999
+
+function! SetRspec1()
+  let t:st_rspec_command="spec"
+endfunction
+
+function! SetRspec2()
+  let t:st_rspec_command="rspec"
+endfunction
+
+function! RunTests(filename)
+  " Write the file and run tests for the given filename
+  :w
+  :silent !echo;echo;echo;echo;echo
+  if !exists("t:st_rspec_command")
+    call SetRspec2()
+  endif
+  exec ":!" . t:st_rspec_command . " " . a:filename
+endfunction
+
+function! SetTestFile()
+  " Set the spec file that tests will be run for.
+  let t:grb_test_file=@%
+endfunction
+
+function! RunTestFile(...)
+  if a:0
+    let command_suffix = a:1
+  else
+    let command_suffix = ""
+  endif
+
+  " Run the tests for the previously-marked file.
+  let in_spec_file = match(expand("%"), '_spec.rb$') != -1
+  if in_spec_file
+    call SetTestFile()
+  elseif !exists("t:grb_test_file")
+    return
+  end
+  call RunTests(t:grb_test_file . command_suffix)
+endfunction
+
+function! RunNearestTest()
+  let spec_line_number = line('.')
+  call RunTestFile(":" . spec_line_number)
+endfunction
+
+" Run this file
+map <leader>t :call RunTestFile()<cr>
+" Run only the example under the cursor
+map <leader>T :call RunNearestTest()<cr>
+" Run all test files
+map <leader>a :call RunTests('spec')<cr>
+
+command! Rspec1 :call SetRspec1()
+command! Rspec2 :call SetRspec2()
 
