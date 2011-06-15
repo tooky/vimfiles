@@ -47,6 +47,7 @@ set visualbell
 set cursorline
 set ttyfast
 set undofile
+set undodir=~/.vim-tmp/undo,~/.tmp,~/tmp,/var/tmp,/tmp
 set laststatus=2
 
 set background=dark
