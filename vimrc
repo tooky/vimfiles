@@ -50,7 +50,7 @@ set undofile
 set undodir=~/.vim-tmp/undo,~/.tmp,~/tmp,/var/tmp,/tmp
 set laststatus=2
 
-set background=dark
+set background=light
 colorscheme solarized
 
 " Intuitive backspacing in insert mode
@@ -232,3 +232,41 @@ map <leader>a :call RunTests('spec')<cr>
 command! Rspec1 :call SetRspec1()
 command! Rspec2 :call SetRspec2()
 
+function! SetCucumberFile()
+  " Set the spec file that tests will be run for.
+  let t:st_cucumber_file=@%
+endfunction
+
+function! RunCucumbers(filename)
+  " Write the file and run tests for the given filename
+  :w
+  :silent !echo;echo;echo;echo;echo
+  exec ":!" . "cucumber" . " " . a:filename
+endfunction
+
+function! RunCucumberFile(...)
+  if a:0
+    let command_suffix = a:1
+  else
+    let command_suffix = ""
+  endif
+
+  " Run the tests for the previously-marked file.
+  let in_cucumber_file = match(expand("%"), '.feature$') != -1
+  if in_cucumber_file
+    call SetCucumberFile()
+  elseif !exists("t:st_cucumber_file")
+    return
+  end
+  call RunCucumbers(t:st_cucumber_file . command_suffix)
+endfunction
+
+function! RunNearestCucumber()
+  let feature_line_number = line('.')
+  call RunCucumberFile(":" . feature_line_number)
+endfunction
+
+" Run this file
+map <leader>c :call RunCucumberFile()<cr>
+" Run only the example under the cursor
+map <leader>C :call RunNearestCucumber()<cr>
