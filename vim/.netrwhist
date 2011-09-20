@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/steve/Developer/.rvm/gems/ruby-1.9.2-p136@ciab/gems/activerecord-3.0.7'
-let g:netrw_dirhist_2='/Users/steve/src/projects/pairstation/chef-repo/cookbooks/rvm/recipes'
-let g:netrw_dirhist_3='/Users/steve/Work/coach_in_a_box/app/controllers/admin'
