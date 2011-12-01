@@ -1,0 +1,4 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/Users/steve/.rvm/gems/ruby-1.9.2-p136@ciab/gems/capybara-0.4.1.2'
+let g:netrw_dirhist_2='/Users/steve/Code/coach_in_a_box/app/stylesheets/partials'

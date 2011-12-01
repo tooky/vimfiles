@@ -94,12 +94,7 @@ nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-
 nnoremap <C-l> <C-w>l
-
-"insert text from osx pastebuffer
-inoremap <C-v> <C-O>:set paste<CR><C-r>*<C-O>:set nopaste<CR>
-inoremap <C-V> <C-O>:set paste!<CR>
 
 map <Leader>] <Plug>MakeGreen
 autocmd BufNewFile,BufRead *_spec.rb compiler rspec
