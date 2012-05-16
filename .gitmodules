@@ -70,3 +70,6 @@
 [submodule "vim/bundle/ctrlp"]
 	path = vim/bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
+[submodule "vim/bundle/vim-rename"]
+	path = vim/bundle/vim-rename
+	url = git://github.com/danro/rename.vim.git

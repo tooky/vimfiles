@@ -41,9 +41,8 @@ nnoremap <tab> %
 vnoremap <tab> %
 
 set wrap
-set textwidth=79
+set textwidth=80
 set formatoptions=qrn1
-set colorcolumn=+5,+6
 
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -55,7 +54,7 @@ set undofile
 set undodir=~/.vim-tmp/undo,~/.tmp,~/tmp,/var/tmp,/tmp
 set laststatus=2
 
-set background=light
+set background=dark
 colorscheme solarized
 
 " Intuitive backspacing in insert mode
@@ -94,6 +93,7 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>a :Ack
 nnoremap <leader>V V`]
 nnoremap <leader>, :b#<CR>
+nnoremap <leader>@ :!ctags --extra=+f -R *<CR><CR>
 
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <C-h> <C-w>h
@@ -104,7 +104,7 @@ nnoremap <C-l> <C-w>l
 map <Leader>] <Plug>MakeGreen
 autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 
-:nnoremap <CR> :nohlsearch<cr>
+nnoremap <leader>n :nohlsearch<cr>
 
 set listchars=tab:▸\ ,trail:·,eol:¬
 set list!
@@ -112,6 +112,8 @@ nmap <silent> <leader>s :set nolist!<CR>
 
 autocmd User Rails nnoremap <buffer> <D-r> :<C-U>Rake<CR>
 autocmd User Rails nnoremap <buffer> <D-R> :<C-U>.Rake<CR>
+
+set clipboard=unnamed
 
 " expand %% to current file path in command mode
 cabbr <expr> %% expand('%:p:h')
@@ -293,6 +295,7 @@ function! AlternateForCurrentFile()
   let in_spec = match(current_file, '^spec/') != -1
   let going_to_spec = !in_spec
   let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1
+  "let in_app = match(current_file, '^app/') != -1
   if going_to_spec
     if in_app
       let new_file = substitute(new_file, '^app/', '', '')
