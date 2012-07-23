@@ -1,9 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/steve/.rvm/gems/ruby-1.9.2-p136@ciab/gems/capybara-0.4.1.2'
-let g:netrw_dirhist_2='/Users/steve/Code/coach_in_a_box/app/stylesheets/partials'
-let g:netrw_dirhist_3='/Users/steve/Code/coach_in_a_box/app/views/admin/invoicing_details'
-let g:netrw_dirhist_4='/Users/steve/Code/olympic/optics/app/models/stationary/a4_with_integrated_label'
-let g:netrw_dirhist_5='/Users/steve'
-let g:netrw_dirhist_6='/Users/steve/Code/olympic/courier_link/features'
-let g:netrw_dirhist_7='/Users/steve/.rbenv/versions/1.9.3-p125/lib/ruby/gems/1.9.1/gems/cucumber-1.1.9'
+let g:netrw_dirhist_cnt =0
