@@ -175,6 +175,13 @@ set winheight=5
 set winminheight=5
 set winheight=999
 
+if bufwinnr(1)
+  map - <c-w>-
+  map + <c-w>+
+  map [ <c-w><
+  map ] <c-w>>
+endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -222,21 +229,23 @@ function! RunTests(filename)
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     if match(a:filename, '\.feature') != -1
         if filereadable("script/features")
-            exec ":!script/features " . a:filename
+            let run_test = "script/features " . a:filename
         elseif filereadable("Gemfile")
-            exec ":!bundle exec cucumber --color " . a:filename
+            let run_test = "bundle exec cucumber --color " . a:filename
         else
-            exec ":!cucumber --color " . a:filename
+            let run_test = "cucumber --color " . a:filename
         end
     else
         if filereadable("script/test")
-            exec ":!script/test " . a:filename
+            let run_test = "script/test " . a:filename
         elseif filereadable("Gemfile")
-            exec ":!bundle exec rspec --color " . a:filename
+            let run_test = "bundle exec rspec --color " . a:filename
         else
-            exec ":!rspec --color " . a:filename
+            let run_test = "rspec --color " . a:filename
         end
     end
+
+    call VimuxRunCommand("clear && " . run_test)
 endfunction
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
