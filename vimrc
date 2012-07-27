@@ -149,6 +149,14 @@ map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
 
+
+" Vimux Bindings
+map <C-j> :call VimuxScrollDownInspect()<cr>
+map <C-k> :call VimuxScrollUpInspect()<cr>
+map <leader><space> :call VimuxRunLastCommand()<cr>
+map <leader>rc :call VimuxPromptCommand()<cr>
+map <leader>rC :call VimuxInterruptRunner()<cr>
+
 function! ShowRoutes()
   " Requires 'scratch' plugin
   :topleft 100 :split __Routes__
@@ -171,15 +179,13 @@ set winwidth=84
 " We have to have a winheight bigger than we want to set winminheight. But if
 " we set winheight to be huge before winminheight, the winminheight set will
 " fail.
-set winheight=5
-set winminheight=5
+set winheight=15
+set winminheight=15
 set winheight=999
 
 if bufwinnr(1)
   map - <c-w>-
   map + <c-w>+
-  map [ <c-w><
-  map ] <c-w>>
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -245,7 +251,7 @@ function! RunTests(filename)
         end
     end
 
-    call VimuxRunCommand("clear && " . run_test)
+    call VimuxRunCommand("clear; " . run_test)
 endfunction
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
@@ -326,7 +332,7 @@ function! ExtractVariable()
     " Paste the original selected text to be the variable value
     normal! $p
 endfunction
-vnoremap <leader>rv :call ExtractVariable()<cr>
+vnoremap <leader>xv :call ExtractVariable()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " INLINE VARIABLE (SKETCHY)
@@ -353,4 +359,4 @@ function! InlineVariable()
     :let @a = l:tmp_a
     :let @b = l:tmp_b
 endfunction
-nnoremap <leader>ri :call InlineVariable()<cr>
+nnoremap <leader>iv :call InlineVariable()<cr>
