@@ -111,7 +111,7 @@ nmap <silent> <leader>s :set nolist!<CR>
 autocmd User Rails nnoremap <buffer> <D-r> :<C-U>Rake<CR>
 autocmd User Rails nnoremap <buffer> <D-R> :<C-U>.Rake<CR>
 
-set clipboard=unnamed
+set clipboard+=unnamed
 
 " expand %% to current file path in command mode
 cabbr <expr> %% expand('%:p:h')
@@ -154,8 +154,9 @@ map <leader>gg :topleft 100 :split Gemfile<cr>
 map <C-j> :call VimuxScrollDownInspect()<cr>
 map <C-k> :call VimuxScrollUpInspect()<cr>
 map <leader><space> :call VimuxRunLastCommand()<cr>
-map <leader>rc :call VimuxPromptCommand()<cr>
-map <leader>rC :call VimuxInterruptRunner()<cr>
+map <leader>x :call VimuxPromptCommand()<cr>
+map <leader>X :call VimuxCloseRunner()<cr>
+map <leader>C :call VimuxInterruptRunner()<cr>
 
 function! ShowRoutes()
   " Requires 'scratch' plugin
@@ -175,12 +176,12 @@ function! ShowRoutes()
 endfunction
 map <leader>gR :call ShowRoutes()<cr>
 
-set winwidth=84
+set winwidth=80
 " We have to have a winheight bigger than we want to set winminheight. But if
 " we set winheight to be huge before winminheight, the winminheight set will
 " fail.
-set winheight=15
-set winminheight=15
+set winheight=10
+set winminheight=10
 set winheight=999
 
 if bufwinnr(1)
@@ -227,12 +228,6 @@ endfunction
 function! RunTests(filename)
     " Write the file and run tests for the given filename
     :w
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     if match(a:filename, '\.feature') != -1
         if filereadable("script/features")
             let run_test = "script/features " . a:filename
@@ -251,7 +246,11 @@ function! RunTests(filename)
         end
     end
 
-    call VimuxRunCommand("clear; " . run_test)
+    if $TMUX != ""
+      call VimuxRunCommand("clear; " . run_test)
+    else
+      exec ":!" . run_test
+    endif
 endfunction
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
