@@ -1,2 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/steve/Code/ciab-reporting/.git'
+let g:netrw_dirhist_2='/Users/steve/Code/ciab-reporting/bin'
+let g:netrw_dirhist_3='/Users/steve/Code/ciab-reporting/features'
+let g:netrw_dirhist_4='/Users/steve/Code/jukebox/jukebox-core/features/step_definitions'
+let g:netrw_dirhist_5='/Users/steve/Code/ciab-reporting/etl/migrations'
+let g:netrw_dirhist_6='/Users/steve/Code/adapter_extensions'

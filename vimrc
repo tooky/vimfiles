@@ -50,7 +50,7 @@ set undodir=~/.vim-tmp/undo,~/.tmp,~/tmp,/var/tmp,/tmp
 set laststatus=2
 
 set background=dark
-colorscheme grb256
+colorscheme Tomorrow-Night-Bright
 
 set colorcolumn=80
 highlight ColorColumn ctermbg=18
@@ -118,6 +118,7 @@ cabbr <expr> %% expand('%:p:h')
 nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
 
 au BufRead,BufNewFile *.pl    set filetype=prolog
+au BufRead,BufNewFile *.md    set filetype=markdown
 
 " Understand :W to be the same thing as :w
 command! W :w
@@ -153,7 +154,6 @@ map <leader>gg :topleft 100 :split Gemfile<cr>
 " Vimux Bindings
 map <C-j> :call VimuxScrollDownInspect()<cr>
 map <C-k> :call VimuxScrollUpInspect()<cr>
-map <leader><space> :call VimuxRunLastCommand()<cr>
 map <leader>x :call VimuxPromptCommand()<cr>
 map <leader>X :call VimuxCloseRunner()<cr>
 map <leader>C :call VimuxInterruptRunner()<cr>
@@ -195,6 +195,8 @@ endif
 map <leader>t :call RunTestFile()<cr>
 map <leader>T :call RunNearestTest()<cr>
 map <leader>a :call RunTests('')<cr>
+map <leader><space> :call ReRunTestCommand()<cr>
+
 map <leader>c :w\|:!script/features<cr>
 map <leader>p :w\|:!cucumber --profile wip %<cr>
 
@@ -245,13 +247,24 @@ function! RunTests(filename)
             let run_test = "rspec --color " . a:filename
         end
     end
-
-    if $TMUX != ""
-      call VimuxRunCommand("clear; " . run_test)
-    else
-      exec ":!" . run_test
-    endif
+    call RunTestCommand(run_test)
 endfunction
+
+function! RunTestCommand(cmd)
+    if match(a:cmd, '.') != -1
+      let t:sst_test_command = a:cmd
+    end
+    "if $TMUX != ""
+      "call VimuxRunCommand("clear; " . t:sst_test_command)
+    "else
+      exec ":!clear;" . t:sst_test_command
+    "endif
+endfunction
+
+function! ReRunTestCommand()
+  call RunTestCommand("")
+endfunction
+
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 function! s:align()
@@ -264,6 +277,13 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
+
+function FormatRubyHash()
+  Tabularize /^[^:]*\zs:/r1c0l0
+  Tabularize /^[^=>]*\zs=>/l1
+endfunction
+
+map <Leader>= :call FormatRubyHash()<cr>
 
 function! OpenTestAlternate()
   let new_file = AlternateForCurrentFile()
@@ -359,3 +379,8 @@ function! InlineVariable()
     :let @b = l:tmp_b
 endfunction
 nnoremap <leader>iv :call InlineVariable()<cr>
+
+"VIM Clojure
+let vimclojure#WantNailgun = 1
+let g:vimclojure#HighlightBuiltins = 1
+let g:vimclojure#ParenRainbow = 1

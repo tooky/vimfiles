@@ -76,3 +76,9 @@
 [submodule "vim/bundle/vimux"]
 	path = vim/bundle/vimux
 	url = git://github.com/benmills/vimux.git
+[submodule "vim/bundle/vim-clojure"]
+	path = vim/bundle/vim-clojure
+	url = git://github.com/vim-scripts/VimClojure.git
+[submodule "vim/bundle/vim-notes"]
+	path = vim/bundle/vim-notes
+	url = git://github.com/xolox/vim-notes.git
